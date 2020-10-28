@@ -14,7 +14,29 @@ info:
 servers:
   - url: 'https://api.openweathermap.org/data/2.5'
     description: prod
-paths: {}
+paths:
+  /weather:
+    get:
+      summary: Weather
+      tags:
+        - Weather endpoints
+      responses: {}
+      operationId: get-weather
+      security:
+        - app_id: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: q
+          description: 'Use city name, state code or ISO 3166 country code. Example: "London"'
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: zip
+          description: Zip code. Example "95050"
+      description: 'Access current weather data for any location on Earth including over 200,000 cities.'
 components:
   schemas: {}
   securitySchemes:
@@ -22,3 +44,12 @@ components:
       name: appid
       type: apiKey
       in: query
+  parameters:
+    lon:
+      name: lon
+      in: query
+      description: '**Longitude**. *Example: 139*. Longitude coordinate of the location of your interest. Must use with `lat`.'
+      schema:
+        type: string
+tags:
+  - name: Weather endpoints
