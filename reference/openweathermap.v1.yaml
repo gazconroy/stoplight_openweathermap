@@ -20,7 +20,6 @@ paths:
       summary: Weather
       tags:
         - Weather endpoints
-      responses: {}
       operationId: get-weather
       security:
         - app_id: []
@@ -37,6 +36,160 @@ paths:
           name: zip
           description: Zip code. Example "95050"
       description: 'Access current weather data for any location on Earth including over 200,000 cities.'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  coord:
+                    type: object
+                    properties:
+                      lon:
+                        type: number
+                        description: 'City geo location, longitude'
+                      lat:
+                        type: number
+                        description: 'City geo location, latitude'
+                  weather:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          description: 'Weather condition ID. Example: 803'
+                        main:
+                          type: string
+                          minLength: 1
+                          description: 'Group of weather parameters (Rain, Snow, Extreme and so on). Example: Clouds'
+                        description:
+                          type: string
+                          minLength: 1
+                          description: 'Weather condition within the group. Example: broken clouds'
+                        icon:
+                          type: string
+                          minLength: 1
+                          description: 'Weather icon ID. Example: 04n'
+                  base:
+                    type: string
+                    minLength: 1
+                    description: 'Internal parameter. Example: cmc stations'
+                  main:
+                    type: object
+                    properties:
+                      temp:
+                        type: number
+                        description: 'Temperature. Unit: Default - Kelvin; Metric - Celsius; Imperial - Fahrenheit. Example: 293.25'
+                      feels_like:
+                        type: number
+                        description: 'What the temperature feels like despite the actual numbers. Example: 41.16'
+                      temp_min:
+                        type: number
+                        description: 'Minimum current temperature. A deviation from current temperature is possible for large cities(use these parameters optionally). Unit: Default - Kelvin;  Metric - Celsius; Imperial - Fahrenheit. Example: 289.82'
+                      temp_max:
+                        type: number
+                        description: 'Maximum current temperature. A deviation from current temperature is possible for large cities(use these parameters optionally). Unit: Default - Kelvin;  Metric - Celsius; Imperial - Fahrenheit. Example: 289.82'
+                      pressure:
+                        type: number
+                        description: 'Atmospheric pressure (at sea level, if there is no sea_level or grnd_level data) in hPa. Example: 1019'
+                      humidity:
+                        type: number
+                        description: 'Humidity (%). Example: 83'
+                  visibility:
+                    type: number
+                    description: 'Visibility (metres). Example: 16093'
+                  wind:
+                    type: object
+                    properties:
+                      speed:
+                        type: number
+                        description: 'Wind speed. Unit: Default - metre/second; Metric - metre/second; Imperial - miles/hour. Example: 5.1'
+                      deg:
+                        type: number
+                        description: 'Wind direction in degrees (meteorological). Example: 150'
+                  clouds:
+                    type: object
+                    properties:
+                      all:
+                        type: number
+                        description: 'Cloudiness (%). Example: 75'
+                  dt:
+                    type: number
+                    description: 'Time of data calculation (unix, UTC). Example: 1435658272'
+                  sys:
+                    type: object
+                    properties:
+                      type:
+                        type: number
+                        description: 'Internal parameter. Example: 1'
+                      id:
+                        type: number
+                        description: 'Internal parameter. Example: 8166'
+                      country:
+                        type: string
+                        minLength: 1
+                        description: 'Country code (GB, JP and so on). Example: AU'
+                      sunrise:
+                        type: number
+                        description: 'Sunrise time (unix, UTC). Example: 1435610796'
+                      sunset:
+                        type: number
+                        description: 'Sunset time (unix, UTC). Example: 1435650870'
+                  timezone:
+                    type: number
+                    description: 'The timezone for the station (shift in seconds from UTC). Example: -28800'
+                  id:
+                    type: number
+                    description: 'City ID. Example: 2172797'
+                  name:
+                    type: string
+                    minLength: 1
+                    description: 'City name. Example: Cairns'
+                  cod:
+                    type: number
+                    description: 'Internal parameter. Example: 200'
+              examples:
+                Weather in Santa Clara:
+                  value:
+                    coord:
+                      lon: -121.95
+                      lat: 37.35
+                    weather:
+                      - id: 803
+                        main: Clouds
+                        description: broken clouds
+                        icon: 04n
+                    base: stations
+                    main:
+                      temp: 45.25
+                      feels_like: 41.16
+                      temp_min: 41
+                      temp_max: 50
+                      pressure: 1026
+                      humidity: 75
+                    visibility: 16093
+                    wind:
+                      speed: 2.57
+                      deg: 36
+                    clouds:
+                      all: 75
+                    dt: 1579415808
+                    sys:
+                      type: 1
+                      id: 5845
+                      country: US
+                      sunrise: 1579360793
+                      sunset: 1579396557
+                    timezone: -28800
+                    id: 0
+                    name: Santa Clara
+                    cod: 200
 components:
   schemas: {}
   securitySchemes:
