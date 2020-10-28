@@ -190,8 +190,25 @@ paths:
                     id: 0
                     name: Santa Clara
                     cod: 200
+        '401':
+          description: '401: Unauthorized.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized_response'
 components:
-  schemas: {}
+  schemas:
+    unauthorized_response:
+      title: unauthorized_response
+      type: object
+      properties:
+        cod:
+          type: integer
+        message:
+          type: string
+      required:
+        - cod
+        - message
   securitySchemes:
     app_id:
       name: appid
